@@ -4,10 +4,10 @@ Assessment for Heavy Water Inc
 1) Upload your model to Amazon S3
 2) Creating a virtual environment
 When deploying to AWS Lambda, you need to upload a virtual environment that holds your code and dependencies. In your project folder, write the following lines. To avoid conflicts, you should not name your virtual environment the same as your project folder.
-pip install virtualenv
-virtualenv your_virtual_environment_name
+>>pip install virtualenv
+>>virtualenv your_virtual_environment_name
 3) To start your virtual environment:
-source your_virtual_environment_name/bin/activate
+>>source your_virtual_environment_name/bin/activate
 4) Creating a Flask API
 We will need a basic Flask application to handle our requests. The application will load our model from Amazon S3 and return the predictions. Start by creating a file named predictions.py and add the code below. Make sure to modify the BUCKET_NAME and MODEL_FILE_NAME before going to the next step.
 
@@ -16,13 +16,13 @@ Using the Boto library, we load our model previously saved on Amazon S3 and save
 6) Creating predictions
 Last but not least, we are ready to get some predictions. The predict method receives as argument the data sent to the API. You will need to add some code to process the data to match your model.
 7) To run your application, you must create an environment variable to tell Flask which files to execute:
-export FLASK_APP=predictions.py
+>>export FLASK_APP=predictions.py
 8) You should make sure that your code is working locally before deploying it to AWS.
 
 Install Flask then run the second command to start your application:
 
-pip install Flask
-flask run
+>>pip install Flask
+>>flask run
 Open a terminal and test your predictions:
 
 curl -d '{"payload": "Insert the data needed for your model to make predictions"}' http://127.0.0.1:5000/
@@ -36,10 +36,10 @@ Important: Before deploying, make sure to configure your AWS credentials. For mo
 
 In your virtual environment, install the required packages:
 
-pip install zappa sklearn boto numpy scipy
+>>pip install zappa sklearn boto numpy scipy
 Then, initialize Zappa. When asked for an app function name, write down predictions.app. (or, the name of your Flask app + .app)
 
-zappa init
+>>zappa init
 AWS Lambda requires your environment to have a maximum size of 50mb, but our packaged environment will be around 100mb. Lucky for us, it is possible for Lambda’s to load code from Amazon S3 without much performance loss (only a few milliseconds).
 
 To activate this feature, you must add a new line to your zappa_settings.json
